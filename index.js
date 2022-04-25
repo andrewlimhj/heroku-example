@@ -5,6 +5,7 @@ import pg from 'pg';
 import multer from 'multer';
 import aws from 'aws-sdk';
 import multerS3 from 'multer-s3';
+import methodOverride from 'method-override';
 
 const { Pool } = pg;
 
@@ -57,6 +58,8 @@ const multerUpload = multer({
 // Initialise Express
 const app = express();
 
+app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 
 app.get('/bananas', (request, response) => {
